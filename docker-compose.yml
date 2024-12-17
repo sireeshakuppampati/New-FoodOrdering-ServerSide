@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: Keyin2021
+      MYSQL_DATABASE: food_ordering_db
+    ports:
+      - "3306:3306"
+
+  app:
+    build: .
+    container_name: food-ordering-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-db
