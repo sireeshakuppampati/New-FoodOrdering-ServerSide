@@ -1,89 +1,126 @@
-New-FoodOrdering
-A Spring Boot RESTful API application for managing food ordering, including users, restaurants, menu items, and orders.
+README for Backend: New-FoodOrdering-SPRING-API
+New-FoodOrdering-SPRING-API
+This is the backend repository for the New Food Ordering application. It is developed using Java Spring Boot and uses MySQL as the database. The backend handles all business logic, API endpoints, and database interactions for the application.
 
 Features
-User Management: Create, retrieve, update, and delete users.
-Restaurant Management: Add, view, update, and delete restaurants.
-Menu Management: Add, view, update, and delete menu items.
-Order Management: Place, retrieve, update, and delete orders.
-Technologies Used
-Java 17
-Spring Boot 3.4
-MySQL (Database)
-Maven (Build tool)
-Docker (Containerization)
+User Management: Create, view, update, and delete users.
+Menu Management: Manage menu items including their availability and details.
+Order Management: Handle customer orders and track their statuses.
+Restaurant Management: Manage restaurant information.
+Secure APIs: Configured with CORS for frontend interaction.
+Logging: Detailed logging for debugging and monitoring.
+Dockerized: Easy deployment using Docker.
 Prerequisites
-Ensure you have the following installed:
+Ensure you have the following installed before setting up the application:
 
-Java 17
+Java JDK 17 or higher
 Maven
-MySQL (Port 3306 with a database food_ordering_db)
-Docker (Optional for containerization)
-Setup Instructions
-1. Clone the Repository
-bash
-Copy code
-git clone <repository-url>
-cd New-FoodOrdering
-2. Set Up the Database
-Run MySQL on localhost:3306.
-Create a database:
-sql
-Copy code
-CREATE DATABASE food_ordering_db;
-Update application.properties with your MySQL credentials:
+MySQL (local or remote database like AWS RDS)
+Docker (optional for containerized deployment)
+Configuration
+Database Configuration:
+Edit the application.properties file to match your database settings:
+
 properties
 Copy code
-spring.datasource.url=jdbc:mysql://localhost:3306/food_ordering_db
-spring.datasource.username=root
-spring.datasource.password=Keyin2021
-3. Build the Project
-Build the project using Maven:
+# Database Configuration
+spring.datasource.url=jdbc:mysql://<your-database-url>:3306/food-ordering-db?useSSL=false&serverTimezone=UTC
+spring.datasource.username=<your-database-username>
+spring.datasource.password=<your-database-password>
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Hibernate Configuration
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+# Server Configuration
+server.servlet.context-path=/New-FoodOrdering
+server.port=8080
+
+# Logging Configuration
+logging.level.org.springframework=DEBUG
+logging.level.org.hibernate.SQL=DEBUG
+How to Run
+Local Setup:
+Clone the repository:
 
 bash
 Copy code
-mvn package -DskipTests
-This generates the JAR file at target/New-FoodOrdering-0.0.1-SNAPSHOT.jar.
-
-4. Run Locally
-Run the application:
+git clone https://github.com/sireeshakuppampati/New-FoodOrdering-SPRING-API.git
+cd New-FoodOrdering-SPRING-API
+Build the project:
 
 bash
 Copy code
-java -jar target/New-FoodOrdering-0.0.1-SNAPSHOT.jar
-Access the application at:
-
-plaintext
-Copy code
-http://localhost:8080/New-FoodOrdering
-Docker Setup
-1. Build the Docker Image
-bash
-Copy code
-docker build -t new-foodordering:latest .
-2. Run the Docker Container
-Run the application on port 9090:
+mvn clean install
+Start the application:
 
 bash
 Copy code
-docker run --name New-FoodOrdering -p 9090:8080 new-foodordering:latest
-Access the application at:
+mvn spring-boot:run
+Access the application:
 
-plaintext
+Local URL: http://localhost:8080/New-FoodOrdering
+Replace localhost with your server URL for deployment.
+Using Docker:
+Build the Docker image:
+
+bash
 Copy code
-http://localhost:9090/New-FoodOrdering
+docker build -t sireesha2024/food-ordering-app:latest .
+Push the Docker image to a container registry:
+
+bash
+Copy code
+docker push sireesha2024/food-ordering-app:latest
+Pull and run the image on the deployment server:
+
+bash
+Copy code
+docker pull sireesha2024/food-ordering-app:latest
+docker run -d --name food-ordering-app -p 8080:8080 sireesha2024/food-ordering-app:latest
 API Endpoints
 Users
-POST /users/add: Add a new user.
-GET /users/all: Get all users.
-GET /users/{id}: Get user by ID.
-PUT /users/update/{id}: Update user details.
-DELETE /users/delete/{id}: Delete user.
-Restaurants
-Similar to users endpoints.
+GET /New-FoodOrdering/users/all - Get all users
+POST /New-FoodOrdering/users/add - Add a new user
+DELETE /New-FoodOrdering/users/delete/{id} - Delete a user by ID
 Menu Items
-Similar to users endpoints.
+GET /New-FoodOrdering/menu_items/all - Get all menu items
+POST /New-FoodOrdering/menu_items/add - Add a new menu item
 Orders
-Similar to users endpoints.
-Testing
-For testing purposes, H2 in-memory database is configured in application-test.properties.
+GET /New-FoodOrdering/orders/all - Get all orders
+POST /New-FoodOrdering/orders/add - Add a new order
+Restaurants
+GET /New-FoodOrdering/restaurants/all - Get all restaurants
+Deployment
+Steps to Push to GitHub
+Initialize a Git repository:
+
+bash
+Copy code
+git init
+Add remote origin:
+
+bash
+Copy code
+git remote add origin https://github.com/sireeshakuppampati/New-FoodOrdering-SPRING-API.git
+Add and commit changes:
+
+bash
+Copy code
+git add .
+git commit -m "Initial commit"
+Push to GitHub:
+
+bash
+Copy code
+git push -u origin main
+Logging and Monitoring
+All logs are saved with debug-level details for troubleshooting.
+Check logging.level.org.springframework and logging.level.org.hibernate.SQL settings in the application.properties file.
+Contact
+For any queries, contact Sireesha Kuppampati.
+
+GitHub: sireeshakuppampati
+Email: siriesha.rao@gmail.com
+
