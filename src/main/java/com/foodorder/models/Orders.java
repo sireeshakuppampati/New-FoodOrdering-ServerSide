@@ -1,9 +1,6 @@
 package com.foodorder.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -13,8 +10,21 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String customerName;
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "menu_item_id")
+    private Long menuItemId;
+
+    @Column(name = "restaurant_id")
+    private Long restaurantId; // Add this field
+
+    @Column(name = "order_date")
     private LocalDate orderDate;
+
+    private String status;
+
+    @Column(name = "total_amount")
     private Double totalAmount;
 
     // Getters and Setters
@@ -26,12 +36,28 @@ public class Orders {
         this.id = id;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getMenuItemId() {
+        return menuItemId;
+    }
+
+    public void setMenuItemId(Long menuItemId) {
+        this.menuItemId = menuItemId;
+    }
+
+    public Long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public LocalDate getOrderDate() {
@@ -40,6 +66,14 @@ public class Orders {
 
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Double getTotalAmount() {
